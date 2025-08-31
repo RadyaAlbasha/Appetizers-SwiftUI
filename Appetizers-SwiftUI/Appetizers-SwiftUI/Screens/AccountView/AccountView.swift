@@ -8,28 +8,23 @@
 import SwiftUI
 
 struct AccountView: View {
-    @State private var firstName: String = ""
-    @State private var lastName: String = ""
-    @State private var email: String = ""
-    @State private var birthDate: Date = Date()
-    @State private var extraNapkins: Bool = false
-    @State private var frequentRefilles: Bool = false
+    @StateObject var viewModel: AccountViewModel = AccountViewModel()
 
     var body: some View {
         NavigationStack{
             Form{
                 Section {
-                    TextField("First Name", text: $firstName)
-                    TextField("Last Name", text: $lastName)
-                    TextField("Email", text: $email)
+                    TextField("First Name", text: $viewModel.user.firstName)
+                    TextField("Last Name", text: $viewModel.user.lastName)
+                    TextField("Email", text: $viewModel.user.email)
                         .keyboardType(.emailAddress)
                         .textInputAutocapitalization(.none)
                         .autocorrectionDisabled(true)
                     
-                    DatePicker("BirthDay", selection: $birthDate, displayedComponents: .date)
+                    DatePicker("BirthDay", selection: $viewModel.user.birthDate, displayedComponents: .date)
                     
                     Button{
-                        print("Save")
+                        viewModel.saveChanges()
                     }label: {
                         Text("Save Changes")
                     }
@@ -38,9 +33,9 @@ struct AccountView: View {
                 }
 
                 Section {
-                    Toggle("Extra Napkins", isOn: $extraNapkins)
+                    Toggle("Extra Napkins", isOn: $viewModel.user.extraNapkins)
                     
-                    Toggle("Frequent Refilles", isOn: $frequentRefilles)
+                    Toggle("Frequent Refilles", isOn: $viewModel.user.frequentRefilles)
                        
                 } header: {
                     Text("Requests")
@@ -49,6 +44,14 @@ struct AccountView: View {
 
             }
             .navigationTitle("😃   Account")
+        }
+        .onAppear() {
+            viewModel.retrieveUser( )
+        }
+        .alert(item: $viewModel.alertItem) { alertItem in
+            Alert(title: alertItem.title,
+                  message: alertItem.message,
+                  dismissButton: alertItem.dismissButton)
         }
     }
 }
