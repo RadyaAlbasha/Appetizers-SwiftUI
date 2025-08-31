@@ -9,9 +9,10 @@ import SwiftUI
 
 @main
 struct Appetizers_SwiftUIApp: App {
+    var order: Order = Order()
     var body: some Scene {
         WindowGroup {
-            AppetrizerTabView()
+            AppetrizerTabView().environmentObject(order) //all childes of this view has access on the order enviroment object
         }
     }
 }
