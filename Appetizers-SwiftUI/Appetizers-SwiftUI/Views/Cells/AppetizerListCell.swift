@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AppetrizerListCell: View {
+struct AppetizerListCell: View {
     let appetizer: Appetizer
     
     var body: some View {
@@ -48,5 +48,5 @@ struct AppetrizerListCell: View {
 }
 
 #Preview {
-    AppetrizerListCell(appetizer: MockData.sampleAppetizer)
+    AppetizerListCell(appetizer: MockData.sampleAppetizer)
 }

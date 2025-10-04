@@ -18,11 +18,11 @@ struct AppetrizerListView: View {
                 List(MockData.orderItems)
 //                List(viewModel.appetizers)
                 {appetizer in
-                    AppetrizerListCell(appetizer: appetizer)
+                    AppetizerListCell(appetizer: appetizer)
 //                        .listRowSeparator(.hidden)
 //                        .listRowSeparatorTint(.brandPrimary)
                         .onTapGesture {
-                            viewModel.selectedApptizer = appetizer
+                            viewModel.selectedAppetizer = appetizer
                             viewModel.isShowingDetail = true
                         }
                 }
@@ -36,7 +36,7 @@ struct AppetrizerListView: View {
             .blur(radius:  viewModel.isShowingDetail ? 20 : 0)
             
             if viewModel.isShowingDetail {
-                AppetizerDetailView(appetizer: viewModel.selectedApptizer!, isShowingDetail: $viewModel.isShowingDetail)
+                AppetizerDetailView(appetizer: viewModel.selectedAppetizer!, isShowingDetail: $viewModel.isShowingDetail)
             }
             if viewModel.isLoading {
                 LoadingView()
